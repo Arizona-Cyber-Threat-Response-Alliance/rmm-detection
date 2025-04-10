@@ -1,0 +1,16 @@
+| tstats summariesonly=false allow_old_summaries=true fillnull_value=null count min(_time) as firstTime max(_time) as lastTime values(All_Traffic.dest_port) as dest_port latest(user) as user from datamodel=Network_Traffic by All_Traffic.src All_Traffic.dest, All_Traffic.app 
+| rename "All_Traffic.*" as * 
+| eval exception_asset = CASE(isnotnull(src),src,isnotnull(dest),dest) 
+| lookup local=true update=true asset_lookup_by_str asset as exception_asset OUTPUTNEW asset as asset_temp_field 
+| eval asset_temp_field = CASE(isnull(asset_temp_field),exception_asset,true(),asset_temp_field ) 
+| lookup local=true remote_access_software_exceptions asset as asset_temp_field software as signature OUTPUT exception as rmm_exception, exception_date as rmm_exception_date, exception_ttl_days as rmm_exception_ttl_days, comment as rmm_exception_comment 
+| eval rmm_exception = mvdedup(mvfilter(NOT match(rmm_exception,"false"))), rmm_exception_date = mvdedup(mvfilter(NOT match(rmm_exception_date,"false"))), rmm_exception_ttl_days = mvdedup(mvfilter(NOT match(rmm_exception_ttl_days,"false"))), rmm_exception_comment = mvdedup(mvfilter(NOT match(rmm_exception_comment,"false"))), rmm_exception_end_date = relative_time(strptime(rmm_exception_date, "%Y-%m-%d"), "+"+rmm_exception_ttl_days+"d"), rmm_exception_end = CASE((now() >= rmm_exception_end_date),"TRUE",(now() < rmm_exception_end_date),"FALSE",(match(rmm_exception,"(?i)true") AND isnull(rmm_exception_ttl_days)),"UNLIMITED") 
+| search NOT (rmm_exception = TRUE AND rmm_exception_end IN ("FALSE","UNLIMITED")) 
+| fields - asset_temp_field,exception_asset 
+| search NOT app IN ("traceroute","ping","icmp","not-applicable","incomplete","netbios-ns","null","asa") AND app=* 
+| convert timeformat="%Y-%m-%dT%H:%M:%S" ctime(firstTime) 
+| convert timeformat="%Y-%m-%dT%H:%M:%S" ctime(lastTime) 
+| lookup local=true remote_access_software remote_appid AS app OUTPUT isutility, description as signature, comment_reference as desc, category 
+| search isutility = True 
+| `detect_remote_access_software_usage_traffic_filter`
+| outputlookup lolrmm.csv append=true
