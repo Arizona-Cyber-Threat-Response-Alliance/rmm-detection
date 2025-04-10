@@ -1,0 +1,205 @@
+<form version="1.1" theme="dark">
+  <label>LOLRMM Network Dashboard</label>
+  <description>Leaveraged resources compiled and curated at: https://lolrmm.io.</description>
+  <search id="lolrmm">
+    <query>$base_search_gen$ 
+    | search isutility = True AND ($rmm_description$ AND $rmm_category$) | `remote_access_software_usage_exceptions`  | `detect_remote_access_software_usage_traffic_filter` |search app!="pcanywhere-base"
+    </query>
+    <earliest>$time.earliest$</earliest>
+    <latest>$time.latest$</latest>
+  </search>
+  <fieldset submitButton="true" autoRun="true">
+    <input type="dropdown" token="base_search_gen" searchWhenChanged="true">
+      <label>Search Type</label>
+      <choice value="| inputlookup lolrmm.csv">LOLRMM Network Report</choice>
+      <choice value="| tstats `security_content_summariesonly` count min(_time) as firstTime max(_time) as lastTime values(All_Traffic.dest_port) as dest_port latest(user) as user from datamodel=Network_Traffic by All_Traffic.src All_Traffic.dest, All_Traffic.app  | `drop_dm_object_name(&quot;All_Traffic&quot;)`  | search NOT app IN (&quot;traceroute&quot;,&quot;ping&quot;,&quot;icmp&quot;,&quot;not-applicable&quot;,&quot;incomplete&quot;,&quot;netbios-ns&quot;,&quot;null&quot;,&quot;asa&quot;) AND app=*  | `security_content_ctime(firstTime)`  | `security_content_ctime(lastTime)`  | lookup local=true remote_access_software remote_appid AS app OUTPUT isutility, description as signature, comment_reference as desc, category">Splunk ES</choice>
+      <choice value="index=pa* sourcetype=&quot;pan:traffic&quot; app!=&quot;pcanywhere-base&quot;  NOT app IN (&quot;traceroute&quot;,&quot;ping&quot;,&quot;icmp&quot;,&quot;not-applicable&quot;,&quot;incomplete&quot;,&quot;netbios-ns&quot;,&quot;null&quot;,&quot;asa&quot;) AND app=*  | table src dest app _time dest_port user  | lookup local=true remote_access_software remote_appid AS app OUTPUT isutility, description as signature, comment_reference as desc, category">PaloAlto Index</choice>
+      <default>| inputlookup lolrmm.csv</default>
+      <initialValue>| inputlookup lolrmm.csv</initialValue>
+    </input>
+    <input type="time" token="time" searchWhenChanged="true">
+      <label>Time</label>
+      <default>
+        <earliest>-5d@d</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="multiselect" token="rmm_category" searchWhenChanged="true">
+      <label>RMM Category</label>
+      <choice value="*">All</choice>
+      <default>*</default>
+      <prefix>category IN (</prefix>
+      <suffix>)</suffix>
+      <initialValue>*</initialValue>
+      <delimiter>,</delimiter>
+      <fieldForLabel>category</fieldForLabel>
+      <fieldForValue>category</fieldForValue>
+      <search>
+        <query>|inputlookup remote_access_software | stats count by category | table category</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+    </input>
+    <input type="multiselect" token="rmm_description" searchWhenChanged="true">
+      <label>RMM Tool</label>
+      <choice value="*">All</choice>
+      <default>*</default>
+      <prefix>desc IN (</prefix>
+      <suffix>)</suffix>
+      <initialValue>*</initialValue>
+      <valuePrefix>"</valuePrefix>
+      <valueSuffix>"</valueSuffix>
+      <delimiter>,</delimiter>
+      <fieldForLabel>description</fieldForLabel>
+      <fieldForValue>description</fieldForValue>
+      <search>
+        <query>|inputlookup remote_access_software | stats count by description | table description</query>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </search>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <chart>
+        <title>Timeline</title>
+        <search base="lolrmm">
+          <query>| eval epoch_time=strptime(firstTime, "%Y-%m-%dT%H:%M:%S")
+| eval _time = ifnull(fistTime,_time,epoch_time)
+| timechart count by app</query>
+        </search>
+        <option name="charting.axisY.scale">log</option>
+        <option name="charting.chart">line</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">preview</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <chart>
+        <title>RRM Application</title>
+        <search base="lolrmm">
+          <query>
+| stats count by app</query>
+        </search>
+        <option name="charting.chart">pie</option>
+        <option name="charting.drilldown">none</option>
+        <option name="refresh.display">preview</option>
+      </chart>
+    </panel>
+    <panel>
+      <map>
+        <title>Geomap RMM Connection</title>
+        <search base="lolrmm">
+          <query>| iplocation dest 
+| geostats count by app latfield=lat longfield=lon</query>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="mapping.data.maxClusters">1000</option>
+        <option name="mapping.markerLayer.markerMaxSize">15</option>
+        <option name="mapping.type">marker</option>
+        <option name="refresh.display">preview</option>
+      </map>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table>
+        <title>Uniqe Src by RMM</title>
+        <search base="lolrmm">
+          <query>
+| stats dc(src) by app</query>
+        </search>
+        <option name="drilldown">cell</option>
+        <option name="refresh.display">preview</option>
+      </table>
+    </panel>
+    <panel>
+      <table>
+        <title>Record Count by RMM</title>
+        <search base="lolrmm">
+          <query>
+| stats count by app</query>
+        </search>
+        <option name="drilldown">cell</option>
+        <option name="refresh.display">preview</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Summary</title>
+      <input type="dropdown" token="filter_action" searchWhenChanged="true">
+        <label>Filter Action</label>
+        <choice value="">Include</choice>
+        <choice value="NOT">Exclude</choice>
+        <default></default>
+      </input>
+      <input type="multiselect" token="finding_src" searchWhenChanged="true">
+        <label>Source IP Filter (CSV)</label>
+        <default>*</default>
+        <prefix>$filter_action$ src IN (</prefix>
+        <suffix>)</suffix>
+        <initialValue>(</initialValue>
+        <search base="lolrmm">
+          <query>| stats count by src</query>
+        </search>
+        <choice value="*">All</choice>
+        <delimiter>,</delimiter>
+        <fieldForLabel>src</fieldForLabel>
+        <fieldForValue>src</fieldForValue>
+      </input>
+      <input type="multiselect" token="finding_app" searchWhenChanged="true">
+        <label>Source App Filter (CSV)</label>
+        <default>*</default>
+        <prefix>$filter_action$ app IN (</prefix>
+        <suffix>)</suffix>
+        <initialValue>(</initialValue>
+        <search base="lolrmm">
+          <query>| stats count by app</query>
+        </search>
+        <choice value="*">All</choice>
+        <delimiter>,</delimiter>
+        <fieldForLabel>app</fieldForLabel>
+        <fieldForValue>app</fieldForValue>
+      </input>
+      <table>
+        <search base="lolrmm">
+          <query>| `detect_remote_access_software_usage_traffic_filter`
+| lookup es_assets ip as src  | stats values(app) as app values(signature) as signature values(user) as user values(desc) as desc values(dns) as dns count by src
+| search  $finding_src$ AND $finding_app$</query>
+        </search>
+        <option name="count">10</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">preview</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Findings</title>
+      <table>
+        <search base="lolrmm">
+          <query>| `detect_remote_access_software_usage_traffic_filter`
+| lookup es_assets ip as src 
+| fields - rmm_*
+| search  $finding_src$ AND $finding_app$</query>
+        </search>
+        <option name="count">10</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">cell</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">preview</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+</form>
