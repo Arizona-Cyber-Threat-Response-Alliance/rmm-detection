@@ -1,0 +1,3 @@
+[submodule "LOLRMM"]
+	path = LOLRMM
+	url = git@github.com:magicsword-io/LOLRMM.git
