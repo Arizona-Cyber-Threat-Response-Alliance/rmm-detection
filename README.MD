@@ -115,7 +115,3 @@ If you don't have Splunk Enterprise Security, you can still use these resources:
 
 > [!CAUTION]
 > This dashboard identifies network traffic patterns associated with RMM tools but does not automatically distinguish between legitimate and malicious usage.
-
-## License
-
-[Include license information here]
