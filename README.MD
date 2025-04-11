@@ -1,13 +1,23 @@
-# LOLRMM Splunk Dashboard
+# LOLRMM Detection Resources
 
 ![LOLRMM Dashboard](splunk/rmm-dashboard.png)
 
 ## Overview
 
-This repository contains Splunk resources for monitoring and detecting Remote Monitoring and Management (RMM) tools in your network environment. RMM tools are commonly used by IT administrators but can also be leveraged by threat actors as part of "Living Off the Land" (LOL) techniques.
+This repository serves as a comprehensive collection of resources for monitoring, detecting, and analyzing Remote Monitoring and Management (RMM) tools across enterprise environments. While RMM tools are essential for legitimate IT administration, they are increasingly being leveraged by threat actors as part of "Living Off the Land" (LOL) techniques, making their detection and monitoring crucial for security teams.
+
+Currently, the repository focuses on Splunk-based detection and monitoring capabilities, but it is actively expanding to include:
+- Multi-SIEM detection rules and dashboards
+- API integration scripts for RMM platforms
+- Detection engineering guidance
+- Threat hunting playbooks
+- Incident response procedures
 
 > [!NOTE]  
 > All data is compiled and curated from: https://lolrmm.io
+
+> [!IMPORTANT]  
+> This project aims to become a central hub for security practitioners dealing with RMM tool detection and analysis across different platforms and tools.
 
 ## Components
 
@@ -20,12 +30,37 @@ This repository contains Splunk resources for monitoring and detecting Remote Mo
 ```
 ├── splunk/
 │   ├── dashboards/
-│   │   └── lolrmm_network_dashoard.xml
+│   │   └── lolrmm_network_dashoard.xml   # Main RMM monitoring dashboard
 │   ├── searches/
-│   │   └── lolrm_network_report.spl
-│   ├── demo.csv
-│   └── rmm-dashboard.png
+│   │   ├── es-lolrmm_dns_cim_search.spl      # ES-compatible DNS monitoring
+│   │   ├── es-lolrmm_network_report.spl      # ES network traffic analysis
+│   │   ├── es-lolrrm_dns_search.spl          # ES DNS detection search
+│   │   └── non-es-lolrrm_dns_search.spl      # Standard Splunk DNS detection
+│   └── demo.csv                              # Sample data for testing
 ```
+
+## Instructions
+
+This repository provides search and dashboard options for both Splunk Enterprise Security (ES) customers and non-ES Splunk customers.
+
+> [!IMPORTANT]  
+> Search files are prefixed with either `es-` or `non-es-` to clearly indicate which environment they are designed for.
+
+### For Splunk Enterprise Security (ES) Customers
+
+ES customers can leverage the data model accelerations and additional context provided by Splunk Enterprise Security:
+
+1. Use the searches prefixed with `es-` which utilize the Network_Traffic data model
+2. The dashboard automatically detects if you're using ES and enables appropriate features
+3. ES-specific correlation searches can be scheduled to trigger notable events
+
+### For Non-ES Splunk Customers
+
+If you don't have Splunk Enterprise Security, you can still use these resources:
+
+1. Use the searches prefixed with `non-es-` which are designed to work with standard Splunk indexes
+2. Configure the dashboard to use PaloAlto or raw network data sources
+3. Create scheduled searches to populate the lookup tables needed by the dashboard
 
 ## Setup Instructions
 
@@ -80,3 +115,7 @@ This repository contains Splunk resources for monitoring and detecting Remote Mo
 
 > [!CAUTION]
 > This dashboard identifies network traffic patterns associated with RMM tools but does not automatically distinguish between legitimate and malicious usage.
+
+## License
+
+[Include license information here]
