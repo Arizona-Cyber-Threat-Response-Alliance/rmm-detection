@@ -1,0 +1,6 @@
+index=corelight sourcetype=corelight_dns_red 
+    [| inputlookup remote_access_software 
+    | rex field=remote_domain "^\*\.(?<query>.+)" 
+    | table query 
+    | dedup query] 
+| table src_ip dest_ip query answer record_type
