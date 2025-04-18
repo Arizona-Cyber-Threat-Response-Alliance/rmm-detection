@@ -1,0 +1,575 @@
+Artifact,Type,Tool
+9380CC75B872221A7425D7503565B67580407F60,hash,Generic RMM
+AEMAgent.exe,filename,CentraStage
+AMMYY_Admin.exe,filename,Ammyy Admin
+ARDAgent.app,filename,Apple Remote Desktop
+AcronisCyberProtectConnectAgent.exe,filename,Acronis Cyber Protect
+AcronisCyberProtectConnectQuickAssist*.exe,filename,Acronis Cyber Protect
+AeroAdmin.exe,filename,AeroAdmin
+AgentSetup-*.exe,filename,Naverisk
+Agent_*_RW.exe,filename,N-Able
+AgentlessRC.exe,filename,Ivanti Remote Control
+ArcUI.exe,filename,Ivanti Remote Control
+AweSun.exe,filename,AweRay
+BASEClient.exe,filename,N-Able
+BASupApp.exe,filename,BeAnywhere
+BASupAppElev.exe,filename,BeAnywhere
+BASupAppSrvc.exe,filename,BeAnywhere
+BASupSrvc.exe,filename,N-Able
+BASupSrvcCnfg.exe,filename,N-Able
+BASupSysInf.exe,filename,BeAnywhere
+BASupTSHelper.exe,filename,N-Able
+Beinsync*.exe,filename,BeInSync
+G2RDesktopConsole-x64.msi,filename,GoTo Resolve
+MobaXterm_installer_12.1.msi,filename,MobaXterm
+SecureCR*.EXE,filename,SecureCRT
+ZA_Access.exe,filename,Zoho Assist
+kitty.exe,filename,KiTTY
+ngrok.zip,filename,ngrok
+nxplayer.exe,filename,FreeNX
+puttytray.exe,filename,PuTTY Tray
+AlpemixService.exe,filename,Alpemix
+*\\AlpemixSrvc\\,filepath,Alpemix
+*\\Downloads\\SuperPuTTY\\*,filepath,SuperPuTTY
+*\\Program Files (x86)\\Almageste\\DragonDisk\\*,filepath,DragonDisk
+*\\Program Files (x86)\\AnyDesk\\*,filepath,AnyDesk
+*\\Program Files (x86)\\AnyViewer\\*,filepath,AnyViewer
+*\\Program Files (x86)\\Atera Networks,filepath,Atera
+*\\Program Files (x86)\\Bitvise SSH Client\\*,filepath,Bitvise SSH Client
+*\\Program Files (x86)\\Bluetrait Agent\\*,filepath,Bluetrait
+*\\Program Files (x86)\\DesktopCentral_Agent\\bin\\*,filepath,ManageEngine Desktop Central
+*\\Program Files (x86)\\GoTo Opener,filepath,GoTo
+*\\Program Files (x86)\\GoToMyPC\\*,filepath,GoToMyPC
+*\\Program Files (x86)\\Google\\Chrome Remote Desktop\\*,filepath,Chrome Remote Desktop
+*\\Program Files (x86)\\ISL Online\\ISL Light*,filepath,ISL Online
+*\\Program Files (x86)\\Kaseya\\,filepath,Kaseya
+*\\Program Files (x86)\\LANDesk\\*,filepath,LANDesk
+*\\Program Files (x86)\\NetSarang\\xShell\\*,filepath,Xshell
+*\\Program Files (x86)\\OnionShare\\*,filepath,OnionShare
+*\\Program Files (x86)\\PJ Technologies\\GOVsrv\\*,filepath,Goverlan
+*\\Program Files (x86)\\Radmin Viewer 3\\Radmin.exe,filepath,RAdmin
+*\\Program Files (x86)\\RemotePC\\*,filepath,RemotePC
+*\\Program Files (x86)\\S3 Browser\\*,filepath,S3 Browser
+*\\Program Files (x86)\\ScreenConnect Client*,filepath,ScreenConnect
+*\\Program Files (x86)\\ScreenConnect Client*\\ScreenConnect.ClientService.exe,filepath,ScreenConnect
+*\\Program Files (x86)\\SmartFTP Client\\en-US\\,filepath,SmartFTP
+*\\Program Files (x86)\\Splashtop\\*,filepath,Splashtop
+*\\Program Files (x86)\\UltraViewer\\UltraViewer_Desktop.exe,filepath,UltraViewer
+*\\Program Files (x86)\\Xpra\\*,filepath,Xpra
+*\\Program Files (x86)\\Yandex\\*,filepath,Yandex.Disk
+*\Program Files (x86)\mRemoteNG\*,filepath,mRemoteNG
+*\\Program Files\\ATERA Networks\\AteraAgent\\*,filepath,Atera
+*\\Program Files\\AnyDesk\\*,filepath,AnyDesk
+*\\Program Files\\Atera Networks,filepath,Atera
+*\\Program Files\\Bitvise SSH Server\\*,filepath,Bitvise SSH Server
+*\\Program Files\\Danware Data\\NetOp Packn Deploy\\*,filepath,Netop Remote Control
+*\\Program Files\\Level\\*,filepath,Level.io
+*\\Program Files\\LiteManager Pro \\u2013 Viewer\\*,filepath,LiteManager
+*\\Program Files\\ManageEngine\\ManageEngine Free Tools\\Launcher\\*,filepath,ManageEngine
+*\\Program Files\\RealVNC\\VNC Server\\*,filepath,RealVNC
+*\\Program Files\\Remote Utilities\\*,filepath,Remote Utilities
+*\\Program Files\\Solar-Putty-v4\\*,filepath,Solar-PuTTY
+*\\Program Files\\SolarWinds\\Dameware Mini Remote Control\\*,filepath,DameWare
+*\\Program Files\\SysAidServer\\*,filepath,SysAid
+*\\Program Files\\TeamViewer\\,filepath,TeamViewer
+*\\Program Files\\TightVNC\\*,filepath,TightVNC
+*\\Program Files\\ZOC8\\*,filepath,ZOC
+*\\Program Files\\uvnc bvba\\UltraVNC\\*,filepath,UltraVNC
+*\\ProgramData\\Kaseya\\,filepath,Kaseya
+*\\ProgramData\\Total Software Deployment\\*,filepath,Total Software Deployment
+*\\ProgramFiles*\\GoTo Machine Installer\\*,filepath,GoTo
+*\\Users\\*\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\iodihamcpbpeioajjeobimgagajmlibd*,filepath,Chrome Remote Desktop
+*\\Users\\*\\AppData\\Local\\MEGAsync\\*,filepath,MEGAsync
+*\\Users\\*\\AppData\\Roaming\\Mikogo\\*,filepath,Mikogo
+*\\Users\\*\\AppData\\Roaming\\SyncTrayzor\\*,filepath,SyncTrayzor
+*\\Users\\*\\Downloads\\AMMYY_Admin.exe,filepath,Ammyy Admin
+*\\Users\\*\\ExtraPuTTY-0.30-2016-01-28-installer.exe,filepath,ExtraPuTTY
+*\\Users\\IEUser\\Downloads\\WinSCP-5.21.6-Portable\\*,filepath,WinSCP
+*\\Users\\*\\AppData\\Roaming\\Insync\\App\\Insync.exe,filepath,Insync
+*\\Windows\\Action1\\*,filepath,Action1
+*\\Windows\\SysWOW64\\rserver30\\FamItrf2,filepath,RAdmin
+*\\Windows\\SysWOW64\\rserver30\\FamItrfc,filepath,RAdmin
+*\\Windows\\SysWOW64\\rserver30\\rserver3.exe,filepath,RAdmin
+*\\Windows\\System32\\mstsc.exe,filepath,Microsoft RDP
+*\\Windows\\dwrcs\\*,filepath,DameWare
+*\\ProgramData\\AMMYY\\*,filepath,Ammyy Admin
+CBBackupPlan.exe,filename,MSP360
+CagService.exe,filename,CentraStage
+Cloud.Backup.RM.Service.exe,filename,MSP360
+Cloud.Backup.Scheduler.exe,filename,MSP360
+CloudRaCmd.exe,filename,MSP360
+CloudRaSd.exe,filename,MSP360
+CloudRaService.exe,filename,MSP360
+CloudRaUtilities.exe,filename,MSP360
+ComodoRemoteControl.exe,filename,Itarian
+Connect.Backdrop.cloud*.exe,filename,Netop Remote Control
+Connect.exe,filename,MSP360 OR Adobe Connect
+ConnectAppSetup*.exe,filename,Adobe Connect
+ConnectDetector.exe,filename,Adobe Connect
+ConnectShellSetup*.exe,filename,Adobe Connect
+ConnectWiseControl*.exe,filename,ConnectWise Control
+CrossLoopConnect.exe,filename,CrossLoop
+DSGuest.exe,filename,DeskShare
+DameWare Mini Remote Control*.exe,filename,DameWare
+DameWare Remote Support.exe,filename,DameWare
+DeskRollUA.exe,filename,SkyFex
+Deskroll.exe,filename,SkyFex
+Domotz Pro Desktop App Setup*.exe,filename,Domotz
+Domotz Pro Desktop App.exe,filename,Domotz
+ERAAgent.exe,filename,ESET Remote Administrator
+EricomConnectRemoteHost*.exe,filename,Ericom Connect
+FastViewer.exe,filename,FastViewer
+FixMeit Client.exe,filename,FixMe.it
+FixMeit Expert Setup.exe,filename,FixMe.it
+FixMeit Unattended Access Setup.exe,filename,FixMe.it
+FixMeitClient*.exe,filename,FixMe.it
+GetScreen.exe,filename,GetScreen
+GoTo Assist Opener.exe,filename,GoToAssist
+GotoHTTP*.exe,filename,GotoHTTP
+GotoHTTP_x64.exe,filename,GotoHTTP
+GovAgentInstallHelper.exe,filename,Goverlan
+GovAgentx64.exe,filename,Goverlan
+GovReachClient.exe,filename,Goverlan
+HelpuManager.exe,filename,HelpU
+HelpuUpdater.exe,filename,HelpU
+InTouch Go Installer.exe,filename,I'm InTouch
+ISLLight.exe,filename,ISL Online
+ISLLightClient.exe,filename,ISL Online
+ITSMAgent.exe,filename,Itarian
+ITSMService.exe,filename,Itarian
+ITarianRemoteAccessSetup.exe,filename,Itarian
+Idrive.File-Transfer,filename,IDrive
+ImperoClientSVC.exe,filename,Impero Connect
+ImperoInit.exe,filename,Netop Remote Control
+InstallShield Setup.exe,filename,ManageEngine
+InstantHousecall.exe,filename,Instant Housecall
+ItsmRsp.exe,filename,Itarian
+IvantiRemoteControl.exe,filename,Ivanti Remote Control
+JumpCloud*.exe,filename,JumpCloud
+KHelpDesk.exe,filename,KHelpDesk
+Kabuto.App.Runner.exe,filename,Syncro
+Kabuto.Installer.exe,filename,Syncro
+Kabuto.Service.Runner.exe,filename,Syncro
+KabutoSetup.exe,filename,Syncro
+LANDeskPortalManager.exe,filename,LANDesk
+MEAgentHelper.exe,filename,Site24x7
+ManageEngine_Remote_Access_Plus.exe,filename,ManageEngine
+ManualLauncher.exe,filename,Any Support
+Microsoft Remote Desktop,filename,Microsoft RDP
+MonitoringAgent.exe,filename,Site24x7
+NTRsupportPro_EN.exe,filename,NTR Remote
+Netop Ondemand.exe,filename,Netop Remote Control
+NinjaRMMAgenPatcher.exe,filename,NinjaRMM
+NinjaRMMAgent.exe,filename,NinjaRMM
+OOSysAgent.exe,filename,Syspectr
+OTPowerShell.exe,filename,OptiTune
+OTService.exe,filename,OptiTune
+OnionShare-win*.msi,filename,OnionShare
+Online Backup.exe,filename,MSP360
+OrayRemoteService.exe,filename,SunLogin
+OrayRemoteShell.exe,filename,SunLogin
+PAExec-*.exe,filename,PSEXEC
+PCIVIDEO.EXE,filename,CrossTec Remote Control
+PCMonitorManager.exe,filename,Pulseway
+Pilixo_Installer*.exe,filename,Pilixo
+QQProtect.exe,filename,QQ
+RAccess.exe,filename,Itarian
+RDConsole.exe,filename,Rocket Remote Desktop
+RDPCheck.exe,filename,rdpwrap
+RDPConf.exe,filename,rdpwrap
+RDPWInst.exe,filename,rdpwrap
+RDesktop.exe,filename,Itarian
+RHost.exe,filename,Itarian
+ROMFUSClient.exe,filename,LiteManager
+ROMServer.exe,filename,LiteManager
+RViewer.exe,filename,Itarian
+Remote Desktop.exe,filename,MSP360
+Remote Workforce Client.exe,filename,ScreenConnect
+RemotePC.exe,filename,RemotePC
+RemotePCService.exe,filename,RemotePC
+RmmService.exe,filename,Itarian
+RocketRemoteDesktop_Setup.exe,filename,Rocket Remote Desktop
+SMPCSetup.exe,filename,ShowMyPC
+SRManager.exe,filename,Splashtop
+SRServer.exe,filename,Splashtop
+ScreenMeet.Support.exe,filename,ScreenMeet
+ScreenMeetSupport.exe,filename,ScreenMeet
+SensoClient.exe,filename,Senso.cloud
+SensoService.exe,filename,Senso.cloud
+ServiceProxyLocalSys.exe,filename,ServerEye
+Site24x7PluginAgent.exe,filename,Site24x7
+Site24x7WindowsAgentTrayIcon.exe,filename,Site24x7
+SolarWinds-Dameware-DRS*.exe,filename,DameWare
+SolarWinds-Dameware-MRC*.exe,filename,DameWare
+Sorillus Launcher.exe,filename,Sorillus
+Sorillus-Launcher*.exe,filename,Sorillus
+SplashtopSOS.exe,filename,Splashtop
+Splashtop_Streamer_Windows*.exe,filename,Splashtop
+Syncro.App.Runner.exe,filename,Syncro
+Syncro.Installer.exe,filename,Syncro
+Syncro.Overmind.Service.exe,filename,Syncro
+Syncro.Service.exe,filename,Syncro
+SyncroLive.Agent.exe,filename,Syncro
+SyncroLive.Service.exe,filename,Syncro
+TPowerShell.exe,filename,Tanium
+TSClient.exe,filename,Parallels Access
+TakeControl.exe,filename,BeAnywhere
+TaniumCX.exe,filename,Tanium
+TaniumClient.exe,filename,Tanium
+TaniumExecWrapper.exe,filename,Tanium
+TaniumFileInfo.exe,filename,Tanium
+TeamTaskManager.exe,filename,DeskShare
+TiClientCore.exe,filename,FixMe.it
+TiClientHelper*.exe,filename,FixMe.it
+TiExpertCore.exe,filename,FixMe.it
+TiExpertStandalone.exe,filename,FixMe.it
+TightVNCViewerPortable*.exe,filename,TightVNC
+ToDesk_Service.exe,filename,ToDesk
+ToDesk_Setup.exe,filename,ToDesk
+UltraVNC*.exe,filename,UltraVNC
+UltraViewer_Desktop.exe,filename,UltraViewer
+UltraViewer_Service.exe,filename,UltraViewer
+UltraViewer_setup*,filename,UltraViewer
+WinVNCStub.exe,filename,CrossLoop
+XSightService.exe,filename,Pocket Controller
+ZMAgent.exe,filename,Zoho Assist
+Zaservice.exe,filename,Zoho Assist
+ZohoMeeting.exe,filename,Zoho Assist
+ZohoURSService.exe,filename,Zoho Assist
+Zohours.exe,filename,Zoho Assist
+aa_v*.exe,filename,Ammyy Admin
+aadg.exe,filename,Senso.cloud
+accessserver*.exe,filename,Ericom AccessNow
+accessserver.exe,filename,Ericom AccessNow
+addigy-*.pkg,filename,Addigy
+aeroadmin.exe,filename,AeroAdmin
+agent32.exe,filename,IntelliAdmin
+agent64.exe,filename,IntelliAdmin
+agent_setup_5.exe,filename,IntelliAdmin
+agentu.exe,filename,RemoteCall
+alitask.exe,filename,AliWangWang
+apc_host.exe,filename,Anyplace Control
+atera_agent.exe,filename,Atera
+ateraagent.exe,filename,Atera
+auvik*.exe,filename,Auvik
+aweray_remote*.exe,filename,AweRay
+awhost32.exe,filename,pcAnywhere
+awrem32.exe,filename,pcAnywhere
+basupsrvc.exe,filename,BeAnywhere
+basupsrvcupdate.exe,filename,BeAnywhere
+basuptshelper.exe,filename,BeAnywhere
+beamyourscreen-host.exe,filename,BeamYourScreen
+beamyourscreen.exe,filename,BeamYourScreen
+bomgar-pac-*.exe,filename,BeyondTrust
+bomgar-pac.exe,filename,BeyondTrust
+bomgar-rdp.exe,filename,BeyondTrust
+bomgar-scc-*.exe,filename,BeyondTrust
+bomgar-scc.exe,filename,BeyondTrust
+*\\Program Files (x86)\\mRemoteNG,filepath,mRemoteNG
+*\\Program Files (x86)\\Sysprogs\\SmarTTY\\*,filepath,SmarTTY
+*\\Program Files\\*\\Duplicati.Server.exe,filepath,Duplicati
+cbb.exe,filename,MSP360
+client32.exe,filename,NetSupport Manager
+clientmrinit.exe,filename,Sophos
+cloudflared.exe,filename,CloudFlare Tunnel
+connectwise*.exe,filename,ScreenConnect
+connectwisechat-customer.exe,filename,ConnectWise Control
+connectwisecontrol.client.exe,filename,ConnectWise Control
+crossloopservice.exe,filename,CrossLoop
+csexec.exe,filename,CSExec (Sysinternals like)
+ctes.exe,filename,Absolute
+cteshostsvc.exe,filename,Absolute
+ctespersitence.exe,filename,Absolute
+ctiserv.exe,filename,Centurion
+dcagentregister.exe,filename,ManageEngine
+dcagentservice.exe,filename,ManageEngine
+dd.exe,filename,Distant Desktop
+ddsystem.exe,filename,Distant Desktop
+desktopnow.exe,filename,DesktopNow
+distant-desktop.exe,filename,Distant Desktop
+dntus*.exe,filename,DameWare
+domotz*.exe,filename,Domotz
+domotz-windows*.exe,filename,Domotz
+domotz.exe,filename,Domotz
+domotz_bash.exe,filename,Domotz
+dwagent.exe,filename,DW Service
+dwagsvc.exe,filename,DW Service
+dwrcs.exe,filename,DameWare
+echoserver*.exe,filename,Echoware
+echoware.dll,filename,Echoware
+ehorus standalone.exe,filename,Pandora RC
+ehorus_agent.exe,filename,Pandora RC
+einstaller.exe,filename,ESET Remote Administrator
+era.exe,filename,ESET Remote Administrator
+eratool.exe,filename,ESET Remote Administrator
+ericomconnnectconfigurationtool.exe,filename,Ericom Connect
+ezHelpManager.exe,filename,ezHelp
+ezhelp*.exe,filename,ESET Remote Administrator
+ezhelpclient.exe,filename,ezHelp
+ezhelpclientmanager.exe,filename,ezHelp
+fastclient.exe,filename,FastViewer
+fastmaster.exe,filename,FastViewer
+fixmeitclient.exe,filename,FixMe.it
+fleetdeck_agent.exe,filename,FleetDeck.io
+fleetdeck_agent_svc.exe,filename,FleetDeck.io
+fleetdeck_commander_launcher.exe,filename,FleetDeck.io
+fleetdeck_commander_svc.exe,filename,FleetDeck.io
+fleetdeck_installer.exe,filename,FleetDeck.io
+g2a*.exe,filename,GoToAssist
+getscreen.exe,filename,GetScreen
+gotoassist.exe,filename,GoToAssist
+gotohttp.exe,filename,GotoHTTP
+goverrmc.exe,filename,Goverlan
+govsrv*.exe,filename,Goverlan
+gp3.exe,filename,GatherPlace
+gp4.exe,filename,GatherPlace
+gp5.exe,filename,GatherPlace
+grabberEM.*msi,filename,GoToMyPC
+grabberTT*.msi,filename,GoToMyPC
+guacd.exe,filename,Guacamole
+helpbeam*.exe,filename,HelpBeam
+helpu_install.exe,filename,HelpU
+hsloader.exe,filename,Instant Housecall
+iadmin.exe,filename,IntelliAdmin
+idrive.RemotePCAgent,filename,IDrive
+ihcserver.exe,filename,Instant Housecall
+iit.exe,filename,I'm InTouch
+instanthousecall.exe,filename,Instant Housecall
+intelliadmin.exe,filename,IntelliAdmin
+intouch.exe,filename,I'm InTouch
+iperius.exe,filename,Iperius Remote
+iperiusremote.exe,filename,Iperius Remote
+ir_agent.exe,filename,Rapid7
+islalwaysonmonitor.exe,filename,ISL Online
+isllight.exe,filename,ISL Online
+isllightservice.exe,filename,ISL Online
+issuser.exe,filename,LANDesk
+itsmagent.exe,filename,Comodo RMM
+jumpclient.exe,filename,Jump Desktop
+jumpconnect.exe,filename,Jump Desktop
+jumpdesktop.exe,filename,Jump Desktop
+jumpservice.exe,filename,Jump Desktop
+jumpupdater.exe,filename,Jump Desktop
+konea.exe,filename,Quest KACE Agent
+landeskagentbootstrap.exe,filename,LANDesk
+laplink-everywhere-setup*.exe,filename,Laplink Everywhere
+laplink.exe,filename,Laplink Everywhere
+laplinkeverywhere.exe,filename,Laplink Everywhere
+ldinv32.exe,filename,LANDesk
+ldsensors.exe,filename,LANDesk
+level-remote-control-ffmpeg.exe,filename,Level.io
+level-windows-amd64.exe,filename,Level.io
+level.exe,filename,Level.io
+llrcservice.exe,filename,Laplink Everywhere
+lmi_rescue.exe,filename,LogMeIn Rescue
+lmnoipserver.exe,filename,LiteManager
+ltsvc.exe,filename,Connectwise Automate
+ltsvcmon.exe,filename,Connectwise Automate
+lttray.exe,filename,Connectwise Automate
+mRemoteNG-Installer-*.msi,filename,mRemoteNG
+mRemoteNG.exe,filename,mRemoteNG
+meshagent*.exe,filename,MeshCentral
+meshcentral*.exe,filename,MeshCentral
+mgntsvc.exe,filename,Sophos
+mikogo-service.exe,filename,Mikogo
+mikogo-starter.exe,filename,Mikogo
+mikogo.exe,filename,Mikogo
+mikogolauncher.exe,filename,Mikogo
+mionet.exe,filename,MioNet
+mionetmanager.exe,filename,MioNet
+mstsc.exe,filename,Microsoft RDP
+mwcliun.exe,filename,Pcnow
+mygreenpc.exe,filename,MyGreenPC
+myivomanager.exe,filename,MyIVO
+myivomgr.exe,filename,MyIVO
+nateon*.exe,filename,NateOn
+nateon.exe,filename,NateOn
+nateonmain.exe,filename,NateOn
+neturo*.exe,filename,Neturo
+neturo.exe,filename,Neturo
+netviewer*.exe,filename,Netviewer
+netviewer.exe,filename,Netviewer
+ngrok.exe,filename,ngrok
+ngstw32.exe,filename,Netop Remote Control
+nhostsvc.exe,filename,Netop Remote Control
+nhstw32.exe,filename,Netop Remote Control
+ninjarmm-cli.exe,filename,NinjaRMM
+ninjarmmagent.exe,filename,NinjaRMM
+nldrw32.exe,filename,Netop Remote Control
+nomachine*.exe,filename,NoMachine
+ntrntservice.exe,filename,Neturo
+nvClient.exe,filename,Netviewer
+nxd.exe,filename,NoMachine
+nxservice*.ese,filename,Unknown
+ocsinventory.exe,filename,OCS Inventory
+ocsservice.exe,filename,OCS Inventory
+oo-syspectr*.exe,filename,Syspectr
+p9agent*.exe,filename,Panorama9
+paexec.exe,filename,PSEXEC
+parallelsaccess-*.exe,filename,Parallels Access
+pcaquickconnect.exe,filename,pcAnywhere
+pcicfgui.exe,filename,NetSupport Manager
+pcictlui.exe,filename,NetSupport Manager
+pcmonitorsrv.exe,filename,Pulseway
+pcnmgr.exe,filename,Pcnow
+pcstarter.exe,filename,TurboMeeting
+pcvisit-easysupport.exe,filename,Pcvisit
+pcvisit.exe,filename,Pcvisit
+pcvisit_client.exe,filename,Pcvisit
+pcvisit_service_client.exe,filename,Pcvisit
+pdq-connect*.exe,filename,PDQ Connect
+pocketcloud*.exe,filename,Pocket Cloud
+pocketcloudservice.exe,filename,Pocket Controller
+pocketcontroller.exe,filename,Pocket Controller
+prl_deskctl_agent.exe,filename,Parallels Access
+prl_deskctl_wizard.exe,filename,Parallels Access
+prl_pm_service.exe,filename,Parallels Access
+psexec.exe,filename,PSEXEC
+psexecsvc.exe,filename,PSEXEC
+pstlaunch.exe,filename,TeleDesktop
+ptdskclient.exe,filename,TeleDesktop
+ptdskhost.exe,filename,TeleDesktop
+qq.exe,filename,QQ
+qqpcmgr.exe,filename,QQ
+quickassist.exe,filename,Microsoft Quick Assist
+raautoup.exe,filename,RemoteCall
+rapid7_agent_core.exe,filename,Rapid7
+rapid7_endpoint_broker.exe,filename,Rapid7
+rcengmgru.exe,filename,RemoteCall
+rcmgrsvc.exe,filename,RemoteCall
+rcstartsupport.exe,filename,RemoteCall
+rd.exe,filename,RuDesktop
+rdp.exe,filename,Remote Desktop Plus
+rdp2tcp.py,filename,rdp2tcp
+remcom.exe,filename,PSEXEC
+remcomsvc.exe,filename,PSEXEC
+remcos*.exe,filename,Remcos
+remobo.exe,filename,Remobo
+remobo_client.exe,filename,Remobo
+remobo_tracker.exe,filename,Remobo
+remote access.exe,filename,SimpleHelp
+remote-it-installer.exe,filename,Remote.it
+remote.it.exe,filename,Remote.it
+remote_host.exe,filename,Chrome Remote Desktop
+remoteconsole.exe,filename,EMCO Remote Console
+remoteit.exe,filename,Remote.it
+remotepass-access.exe,filename,RemotePass
+remotepchost.exe,filename,RemotePC
+remotepcservice.exe,filename,RemotePC
+remotesupportplayeru.exe,filename,RemoteCall
+remoteview.exe,filename,RemoteView
+remoting_host.exe,filename,Chrome Remote Desktop
+rfusclient.exe,filename,Remote Manipulator System
+rmserverconsolemediator.exe,filename,Netop Remote Control
+romfusclient.exe,filename,LiteManager
+romserver.exe,filename,LiteManager
+romviewer.exe,filename,LiteManager
+routernt.exe,filename,Sophos
+royalserver.exe,filename,Royal Apps
+royalts.exe,filename,Royal Apps
+rpaccess.exe,filename,RemotePass
+rpcld.exe,filename,Absolute
+rpcnet.exe,filename,Absolute
+rpcsuite.exe,filename,RemotePC
+rport.exe,filename,RPort
+rpwhostscr.exe,filename,RemotePass
+rudesktop*.exe,filename,RuDesktop
+rustdesk*.exe,filename,RustDesk
+rustdesk.exe,filename,RustDesk
+rutserv.exe,filename,Remote Utilities
+rutview.exe,filename,Remote Utilities
+rv.exe,filename,RemoteView
+rvagent.exe,filename,RemoteView
+rvagtray.exe,filename,RemoteView
+rviewer.exe,filename,Comodo RMM
+rxstartsupport.exe,filename,RemoteCall
+saazapsc.exe,filename,ITSupport247
+screenconnect*.exe,filename,ScreenConnect
+screenconnect.clientservice.exe,filename,ScreenConnect
+screenconnect.windowsclient.exe,filename,ScreenConnect
+seetrolcenter.exe,filename,Seetrol
+seetrolclient.exe,filename,Seetrol
+seetrolmyservice.exe,filename,Seetrol
+seetrolremote.exe,filename,Seetrol
+seetrolsetting.exe,filename,Seetrol
+servereye*.exe,filename,ServerEye
+serverproxyservice.exe,filename,Laplink Everywhere
+serviceconfig.xml,filename,SimpleHelp
+showmypc*.exe,filename,ShowMyPC
+showmypc.exe,filename,ShowMyPC
+simplegatewayservice.exe,filename,SimpleHelp
+simplehelpcustomer.exe,filename,SimpleHelp
+simpleservice.exe,filename,SimpleHelp
+smpcsetup.exe,filename,ShowMyPC
+spsrv.exe,filename,Unknown
+sragent.exe,filename,Splashtop Remote
+srmanager.exe,filename,Splashtop Remote
+srserver.exe,filename,Splashtop Remote
+srservice.exe,filename,Splashtop Remote
+strwinclt.exe,filename,Splashtop Remote
+sunlogin*.exe,filename,SunLogin
+superops.exe,filename,SuperOps
+superopsticket.exe,filename,SuperOps
+support-logmeinrescue*.exe,filename,LogMeIn Rescue
+support-logmeinrescue.exe,filename,LogMeIn Rescue
+supporttool.exe,filename,CrossTec Remote Control
+supremo.exe,filename,Supremo
+supremohelper.exe,filename,Supremo
+supremoservice.exe,filename,Supremo
+supremosystem.exe,filename,Supremo
+syncrosetup.exe,filename,Atera
+sysdiag.exe,filename,SpyAnywhere
+tacticalrmm.exe,filename,Tactical RMM
+tailscale-*.exe,filename,Tailscale
+tailscale-ipn.exe,filename,Tailscale
+tailscaled.exe,filename,Tailscale
+tdp2tcp.exe,filename,rdp2tcp
+teamviewer_desktop.exe,filename,TeamViewer
+teamviewer_service.exe,filename,TeamViewer
+teamviewerhost,filename,TeamViewer
+termsrv.exe,filename,Microsoft TSC
+tigervnc*.exe,filename,TigerVNC
+todesk.exe,filename,ToDesk
+tsircusr.exe,filename,Laplink Gold
+turbomeeting.exe,filename,TurboMeeting
+turbomeetingstarter.exe,filename,TurboMeeting
+tvnserver.exe,filename,TightVNC
+tvnviewer.exe,filename,TightVNC
+ultimate_*.exe,filename,DeskDay
+ultraviewer.exe,filename,UltraViewer
+ultraviewer_desktop.exe,filename,UltraViewer
+ultraviewer_service.exe,filename,UltraViewer
+vncserver.exe,filename,VNC
+vncserverui.exe,filename,VNC
+vncviewer.exe,filename,VNC
+webexpcnow.exe,filename,Pcnow
+webrdp.exe,filename,WebRDP
+weezo setup*.exe,filename,Weezo
+weezo.exe,filename,Weezo
+weezohttpd.exe,filename,Weezo
+winagent.exe,filename,N-Able
+winaw32.exe,filename,pcAnywhere
+windowslauncher.exe,filename,SimpleHelp
+winvnc*.exe,filename,VNC
+winvnc.exe,filename,VNC
+winvnc4.exe,filename,TigerVNC
+winvncsc.exe,filename,VNC
+winwvc.exe,filename,VNC
+wisshell*.exe,filename,RES Automation Manager
+wmc.exe,filename,RES Automation Manager
+wmc_deployer.exe,filename,RES Automation Manager
+wmcsvc.exe,filename,RES Automation Manager
+wysebrowser.exe,filename,Pocket Controller
+xcmd.exe,filename,PSEXEC
+xcmdsvc.exe,filename,PSEXEC
+xeox-agent_*.exe,filename,Xeox
+xeox-agent_x64.exe,filename,Xeox
+xeox-agent_x86.exe,filename,Xeox
+xeox_service_windows.exe,filename,Xeox
+za_connect.exe,filename,Zoho Assist
+zabbix_agent*.exe,filename,Zabbix Agent
+zaservice.exe,filename,Zoho Assist
+zero-powershell.exe,filename,ZeroTier
+zerotier*.exe,filename,ZeroTier
+zerotier*.msi,filename,ZeroTier
+zohotray.exe,filename,Zoho Assist

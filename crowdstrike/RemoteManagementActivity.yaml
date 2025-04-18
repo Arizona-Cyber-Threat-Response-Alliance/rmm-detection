@@ -1,0 +1,189 @@
+name: Remote Management Activity
+updateFrequency: never
+timeSelector: {}
+sharedTimeInterval:
+  enabled: false
+  isLive: false
+  start: 1d
+widgets:
+  446f914a-2301-4a34-8959-f15f59799bea:
+    x: 8
+    y: 4
+    height: 5
+    queryString: |+
+      #event_simpleName=DnsRequest
+      | match(file="RMM_Domain_Artifacts.csv", field=[DomainName], column=Artifact, include=[Tool, DomainName, ComputerName], strict=true, ignoreCase=true, mode=glob)
+      | NOT regex(regex=?apps-param, field=Tool)
+      | groupBy([Tool], function=[collect([DomainName]), count(ComputerName, as="Hosts", distinct=true)])
+
+    end: now
+    start: 7d
+    width: 4
+    options:
+      cell-overflow: ellipsis
+      configured-columns: {}
+      row-numbers-enabled: false
+    visualization: table-view
+    title: RMM Tool RELATED DNS Queries
+    isLive: false
+    type: query
+  03abeabe-6543-42ae-b7b4-852d49574d79:
+    x: 5
+    y: 0
+    height: 4
+    queryString: |+
+      #event_simpleName=NetworkConnectIP4
+      | NOT regex(regex=?apps-param, field=ContextBaseFileName)
+      | match(file="RMM_Artifacts.csv", field=[ContextBaseFileName], column=Artifact, include=[Tool, ContextBaseFileName, ComputerName], strict=true, ignoreCase=true, mode=glob)
+      | groupBy([Tool], function=collect([RemoteIP, RemotePort, ComputerName]))
+
+    end: now
+    start: 7d
+    width: 7
+    options:
+      cell-overflow: truncate
+      configured-columns:
+        RemoteIP:
+          width: 225
+        Tool:
+          render-as: value
+      row-numbers-enabled: false
+    visualization: table-view
+    title: Remote Connections by RMM Tools
+    isLive: false
+    type: query
+  note-1743786513145-0:
+    x: 0
+    y: 0
+    height: 4
+    text: |-
+      # Remote Connections by RMM Tools
+      This is the main widget to look at, and is based on the file names of processes creating remote connections. These are not necessarily blocked or allowed by other tools.
+
+      # DNS Query widgets
+      These widgets are based on domain names of RMM tools and their organizations, but don't necessarily indicate the usage of the tool.
+
+      # Application Filter
+      Use the application control above to see data for approved and sanctioned apps.
+    width: 5
+    title: ''
+    type: note
+  d11a8192-02c4-49e0-9ffe-6c5706135622:
+    x: 0
+    height: 5
+    queryString: |+
+      #event_simpleName=DnsRequest
+      | match(file="RMM_Domain_Artifacts.csv", field=[DomainName], column=Artifact, include=[Tool, DomainName, ComputerName], strict=true, ignoreCase=true, mode=glob)
+      | NOT regex(regex=?apps-param, field=Tool)
+      | groupBy([Tool], function=[count(field=ComputerName, as="Hosts", distinct=true), collect([DomainName, RespondingDnsServer])])
+
+    end: now
+    start: 7d
+    width: 4
+    y: 4
+    interactions:
+    - name: View DNS Queries for {{fields.Tool}}
+      queryString: "// Suggested go to events query - may be incorrect for complex\
+        \ queries \n#event_simpleName=DnsRequest | match(file=\"RMM_Domain_Artifacts.csv\"\
+        ,field=[DomainName],column=Artifact,include=[Tool,DomainName,ComputerName],strict=true,ignoreCase=true,mode=glob)\
+        \ | !regex(regex=\"TeamViewer|mstsc|Service Desk|RoyalTS|Royal Server|PsExec|Microsoft\
+        \ Remote Desktop|Adobe|Auvik\",field=Tool) | Tool=?Tool "
+      useWidgetTimeWindow: true
+      arguments:
+        Tool: '["{{fields.Tool}}"]'
+      openInNewTab: true
+      isLive: false
+      type: searchlink
+    options:
+      series:
+        Hosts:
+          color: '#eb1e1e'
+          title: Hosts with Queries
+      series-fields:
+      - Hosts
+      labelAngle: 0
+      yScaleType: linear
+      legend: false
+      barChartOrientation: horizontal
+      labelAlign: right
+      valueFormat: raw
+      valuesOnBars: true
+      line-overlay: false
+      barChartType: grouped
+      series-definition: fields
+      labelLimit: 600
+      seriesPadding: 0.1
+      sortOrder: descending
+      orderBy: Hosts
+      categoryPadding: 0.25
+      inputDataFormat: wide
+    visualization: bar-chart
+    title: Hosts with RMM RELATED DNS Queries
+    isLive: false
+    type: query
+  85d6a917-388a-4da0-995c-fa6fe965e233:
+    x: 4
+    height: 5
+    queryString: |+
+      #event_simpleName=DnsRequest
+      | match(file="RMM_Domain_Artifacts.csv", field=[DomainName], column=Artifact, include=[Tool, DomainName, ComputerName], strict=true, ignoreCase=true, mode=glob)
+      | NOT regex(regex=?apps-param, field=Tool)
+      | groupBy([Tool], function=[count(field=ComputerName, as="Hosts", distinct=true), count(DomainName, as="Queries")])
+
+    end: now
+    start: 7d
+    width: 4
+    y: 4
+    interactions:
+    - name: View DNS Queries for {{fields.Tool}}
+      queryString: "// Suggested go to events query - may be incorrect for complex\
+        \ queries \n#event_simpleName=DnsRequest | match(file=\"RMM_Domain_Artifacts.csv\"\
+        ,field=[DomainName],column=Artifact,include=[Tool,DomainName,ComputerName],strict=true,ignoreCase=true,mode=glob)\
+        \ | !regex(regex=\"TeamViewer|mstsc|Service Desk|RoyalTS|Royal Server|PsExec|Microsoft\
+        \ Remote Desktop|Adobe|Auvik\",field=Tool) | Tool=?Tool "
+      useWidgetTimeWindow: true
+      arguments:
+        Tool: '["{{fields.Tool}}"]'
+      openInNewTab: true
+      isLive: false
+      type: searchlink
+    options:
+      legendPosition: right
+      series:
+        Queries:
+          color: '#6e64f2'
+          title: Total Queries
+      labelAngle: 0
+      yScaleType: linear
+      legend: false
+      barChartOrientation: horizontal
+      labelAlign: right
+      series-fields:
+      - Queries
+      withXAxisTitle: true
+      valueFormat: raw
+      valuesOnBars: true
+      line-overlay: false
+      barChartType: grouped
+      series-definition: fields
+      labelLimit: 600
+      seriesPadding: 0.5
+      sortOrder: descending
+      orderBy: Queries
+      categoryPadding: 0.35
+      inputDataFormat: wide
+    visualization: bar-chart
+    title: Total RMM RELATED DNS Queries
+    isLive: false
+    type: query
+$schema: https://schemas.humio.com/dashboard/v0.19.0
+parameters:
+  apps-param:
+    label: Application Filter
+    order: 50
+    values:
+      mstsc|PsExec|Microsoft Remote Desktop: Unsanctioned Apps
+      XXXXX: ALL Apps
+    type: list
+    defaultValue: mstsc|PsExec|Microsoft Remote Desktop
+    width: 1
