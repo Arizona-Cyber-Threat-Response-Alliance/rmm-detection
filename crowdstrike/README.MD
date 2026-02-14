@@ -4,10 +4,11 @@
 
 #### CrowdStrike Setup Instructions
 
-1.  **Upload Lookup Files:**
+1.  **Generate & Upload Lookup Files:**
+    *   Run `python3 generate_artifacts.py` to generate the artifact CSV files.
     *   Navigate to `Next-Gen SIEM -> Log management -> Lookup files` in your Falcon console.
-    *   Upload `crowdstrike/RMM-Artifacts.csv`.
-    *   Upload `crowdstrike/RMM_Domain_Artifacts.csv`.
+    *   Upload the generated `RMM_Artifacts.csv`.
+    *   Upload the generated `RMM_Domain_Artifacts.csv`.
 
 2.  **Import Dashboard:**
     *   Navigate to `Next-Gen SIEM -> Log management -> Dashboards`.
