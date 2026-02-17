@@ -14,8 +14,8 @@ This directory contains a scoped IOC sync workflow for importing LOLRMM domain i
 - Action: stage-driven (`assess` -> no writes, `report` -> no-detection action, `deploy` -> `detect`)
 - Severity: `informational`
 - Platforms: `windows`, `mac`, `linux` (when available in tenant)
-- Source: `autormmdetect_lolrmm`
-- Tags: `autormmdetect`, `feed_lolrmm`, `scope_domain`, `managed_by_ioc_sync`
+- Source: `actra_rmm_detection_ioc`
+- Tags: `actra`, `rmm_detection`, `feed_lolrmm`
 - Retrodetects: opt-in via `--retrodetects`
 
 ## Credentials
@@ -49,6 +49,11 @@ uv run python cs-sync.py --stage deploy
 ```
 
 **Interactive Safety**: Running `report` or `deploy` modes without `--dry-run` will trigger interactive prompts to confirm execution and scope. To bypass these for automation, use `--confirm-write`.
+
+**Logging and Output**:
+- Default log level is `WARNING`.
+- The tool always prints a concise `Run Summary` to stdout at the end of execution, including stage/action/scope and key stats.
+- Use `--log-level INFO` or `--log-level DEBUG` when you want verbose operational logs.
 
 Use `--summary-json` to capture a machine-readable run summary.
 - Summary output includes `summary_schema_version` and `generated_at` for forward compatibility.
@@ -105,6 +110,18 @@ Here are common scenarios for running the tool. All write operations require con
 See what *would* happen without making any changes. Good for testing configuration or seeing new indicators.
 ```bash
 uv run python cs-sync.py --dry-run
+```
+
+Example summary output:
+
+```text
+Run Summary
+- Stage: report | Action: no_action | Dry run: True
+- Scope: host-groups (1)
+- Host group IDs: b40f349e9ba545208221968c0f6b5189
+- Indicators: selected=10, priority=3, safe=10, unsafe=0
+- Source stats: raw_domains=565, normalized_domains=10, deduped=104
+- Sync plan: create=0, update=0, unchanged=10, delete=0
 ```
 
 ### 2. Assessment with Prevalence (Default)
