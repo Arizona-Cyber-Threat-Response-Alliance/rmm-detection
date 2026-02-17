@@ -3,8 +3,8 @@ from dataclasses import dataclass, field
 
 from source import NormalizedEntry
 
-PROJECT_SOURCE = "autormmdetect_lolrmm"
-PROJECT_TAGS = ["autormmdetect", "feed_lolrmm", "scope_domain", "managed_by_ioc_sync"]
+PROJECT_SOURCE = "actra_rmm_detection_ioc"
+PROJECT_TAGS = ["actra", "rmm_detection", "feed_lolrmm"]
 DEFAULT_PLATFORMS = ["windows", "mac", "linux"]
 DEFAULT_ACTION = "detect"
 DEFAULT_SEVERITY = "informational"
@@ -160,30 +160,58 @@ def resolve_host_group_ids(
         kwargs["base_url"] = base_url
     hg_client = HostGroup(**kwargs)
 
-    # Use FQL to filter by name directly
-    # escape names to prevent FQL injection/errors
-    safe_names = [f"'{fql_escape(name)}'" for name in group_names]
-    fql_filter = f"name:[{','.join(safe_names)}]"
+    found_ids: list[str] = []
+    found_names: set[str] = set()
 
-    # query combined endpoint returns full details in one call
-    resp = hg_client.query_combined_host_groups(filter=fql_filter)
-    if resp["status_code"] != 200:
-        LOGGER.error("Failed to query host groups: %s", resp["body"])
-        return []
+    # Resolve each name independently. Use wildcard name query because
+    # exact name:'value' filters can return empty results in some tenants.
+    for name in group_names:
+        fql_filter = f"name:*'{fql_escape(name)}*'"
+        resp = hg_client.query_combined_host_groups(filter=fql_filter, limit=100)
+        if resp.get("status_code") != 200:
+            LOGGER.error("Failed to query host group '%s': %s", name, resp.get("body"))
+            continue
 
-    found_details = resp["body"].get("resources", [])
-    if not found_details:
-        LOGGER.warning("No host groups found matching: %s", group_names)
-        return []
+        resources = (resp.get("body") or {}).get("resources") or []
+        if not resources:
+            continue
 
-    found_ids = [g.get("id") for g in found_details if g.get("id")]
-    found_names = {g.get("name") for g in found_details}
+        normalized = name.strip().lower()
+        exact_matches = [
+            g
+            for g in resources
+            if isinstance(g, dict)
+            and str(g.get("name") or "").strip().lower() == normalized
+        ]
+
+        for group in exact_matches:
+            gid = group.get("id")
+            if gid:
+                found_ids.append(str(gid))
+                found_names.add(str(group.get("name") or name))
+
+        # If no exact match but wildcard returned results, accept a single match.
+        if not exact_matches and len(resources) == 1 and isinstance(resources[0], dict):
+            gid = resources[0].get("id")
+            if gid:
+                LOGGER.warning(
+                    "Host Group '%s' matched by wildcard only; using '%s'.",
+                    name,
+                    resources[0].get("name"),
+                )
+                found_ids.append(str(gid))
+                found_names.add(name)
+
+    deduped_ids = list(dict.fromkeys(found_ids))
 
     for name in group_names:
         if name not in found_names:
             LOGGER.warning("Host Group not found: '%s'", name)
 
-    return found_ids
+    if not deduped_ids:
+        LOGGER.warning("No host groups found matching: %s", group_names)
+
+    return deduped_ids
 
 
 def make_indicator(
