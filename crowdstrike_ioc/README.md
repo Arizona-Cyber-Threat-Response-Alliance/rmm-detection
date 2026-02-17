@@ -19,13 +19,30 @@ This directory contains a scoped IOC sync workflow for importing LOLRMM domain i
 - Retrodetects: opt-in via `--retrodetects`
 
 ## Credentials
+
+The tool requires an API client with specific permissions. Create one in the Falcon Console under **Support and resources > API Client and Keys -> OAuth 2 API clients**.
+
+### Required API Scopes
+
+| API Service | Permission | Purpose |
+| :--- | :--- | :--- |
+| **IOCs (Indicators of Compromise)** | `Read` & `Write` | Manage the domain indicators |
+| **Host groups** | `Read` | Resolve group names to IDs for scoped rollout |
+| **IOC Management** | `Read` | Check project status and available actions |
+
+### Configuration
+
 The tool supports CLI args or `.env` values:
 - `CLIENT_ID`
 - `CLIENT_SECRET`
-- `BASE_URL` (optional)
+- `BASE_URL` (optional: defaults to `https://api.crowdstrike.com`)
 
-Create API credentials in Falcon here:
-- `https://falcon.crowdstrike.com/api-clients-and-keys`
+Example `.env` file:
+```env
+CLIENT_ID=your_id_here
+CLIENT_SECRET=your_secret_here
+BASE_URL=https://api.crowdstrike.com
+```
 
 ## Install and run (uv preferred)
 ```bash
