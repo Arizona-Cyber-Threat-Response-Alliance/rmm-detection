@@ -72,9 +72,9 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--log-level",
-        default="DEBUG",
+        default="WARNING",
         choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
-        help="Logging level (default: DEBUG)",
+        help="Logging level (default: WARNING)",
     )
     parser.add_argument(
         "--stage",
@@ -126,6 +126,67 @@ def setup_logging(level: str):
         level=getattr(logging, level.upper(), logging.DEBUG),
         format="%(asctime)s %(levelname)s %(message)s",
     )
+
+
+def print_run_summary(summary: dict, host_groups: list[str], host_group_ids: list[str]):
+    counts = summary.get("counts", {})
+    source_stats = summary.get("source_stats", {})
+    sync_plan = summary.get("sync_plan", {})
+    prevalence_stats = summary.get("prevalence_stats", {})
+
+    scope = "global"
+    if host_groups:
+        scope = f"host-groups ({len(host_groups)})"
+
+    print("\nRun Summary")
+    print(
+        "- Stage: {stage} | Action: {action} | Dry run: {dry_run}".format(
+            stage=summary.get("stage", "unknown"),
+            action=summary.get("action", "unknown"),
+            dry_run=summary.get("dry_run", False),
+        )
+    )
+    print(f"- Scope: {scope}")
+    if host_group_ids:
+        print(f"- Host group IDs: {', '.join(host_group_ids)}")
+    print(
+        "- Indicators: selected={selected}, priority={priority}, safe={safe}, unsafe={unsafe}".format(
+            selected=counts.get("selected", 0),
+            priority=counts.get("priority_hits", 0),
+            safe=counts.get("safe", 0),
+            unsafe=counts.get("unsafe", 0),
+        )
+    )
+    print(
+        "- Source stats: raw_domains={raw_domains}, normalized_domains={normalized_domains}, deduped={deduped}".format(
+            raw_domains=source_stats.get("raw_domains", 0),
+            normalized_domains=source_stats.get("normalized_domains", 0),
+            deduped=source_stats.get("deduped", 0),
+        )
+    )
+
+    if all(k in sync_plan for k in ("create", "update", "delete", "unchanged")):
+        print(
+            "- Sync plan: create={create}, update={update}, unchanged={unchanged}, delete={delete}".format(
+                create=sync_plan.get("create", 0),
+                update=sync_plan.get("update", 0),
+                unchanged=sync_plan.get("unchanged", 0),
+                delete=sync_plan.get("delete", 0),
+            )
+        )
+    elif sync_plan.get("status"):
+        print(f"- Sync plan: {sync_plan.get('status')}")
+
+    if (
+        isinstance(prevalence_stats, dict)
+        and prevalence_stats.get("evaluated") is not None
+    ):
+        print(
+            "- Prevalence: evaluated={evaluated}, high_prevalence_domains={high}".format(
+                evaluated=prevalence_stats.get("evaluated", 0),
+                high=prevalence_stats.get("high_prevalence_domains", 0),
+            )
+        )
 
 
 def main() -> int:
@@ -201,7 +262,7 @@ def main() -> int:
 
     if is_write_stage and not args.dry_run:
         print(
-            f"\n!!! SAFETY WARNING: You are about to running in '{stage.upper()}' mode. !!!"
+            f"\n!!! SAFETY WARNING: You are about to run in '{stage.upper()}' mode. !!!"
         )
         if is_global:
             print("!!! SCOPE WARNING: This will apply to ALL hosts (Global Scope). !!!")
@@ -362,9 +423,9 @@ def main() -> int:
         )
 
     if args.project_status:
-        LOGGER.info(
-            "Current managed IOC count in tenant: %d", len(iter_managed_iocs(client))
-        )
+        managed_count = len(iter_managed_iocs(client))
+        LOGGER.info("Current managed IOC count in tenant: %d", managed_count)
+        print(f"Project status: managed IOC count = {managed_count}")
         return 0
 
     should_run_prevalence = (not args.skip_prevalence_report) and stage == "assess"
@@ -397,20 +458,23 @@ def main() -> int:
             host_groups=host_group_ids,
         )
 
+    summary_payload = build_summary_payload(
+        desired=desired,
+        stats=stats,
+        stage=stage,
+        action=action,
+        dry_run=args.dry_run,
+        sync_plan=sync_plan,
+        prevalence_stats=prevalence_stats,
+    )
+
     if args.summary_json:
         write_json_summary(
             Path(args.summary_json),
-            build_summary_payload(
-                desired=desired,
-                stats=stats,
-                stage=stage,
-                action=action,
-                dry_run=args.dry_run,
-                sync_plan=sync_plan,
-                prevalence_stats=prevalence_stats,
-            ),
+            summary_payload,
         )
 
+    print_run_summary(summary_payload, host_groups_config, host_group_ids)
     LOGGER.info("Done.")
     return 0
 
