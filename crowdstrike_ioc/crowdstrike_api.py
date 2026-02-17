@@ -3,8 +3,8 @@ from dataclasses import dataclass, field
 
 from source import NormalizedEntry
 
-PROJECT_SOURCE = "actra_rmm_detection_ioc"
-PROJECT_TAGS = ["actra", "rmm_detection", "feed_lolrmm"]
+PROJECT_SOURCE = "tisu_rmm_detection_ioc"
+PROJECT_TAGS = ["tisu", "rmm_detection", "feed_lolrmm"]
 DEFAULT_PLATFORMS = ["windows", "mac", "linux"]
 DEFAULT_ACTION = "detect"
 DEFAULT_SEVERITY = "informational"
@@ -229,7 +229,7 @@ def make_indicator(
     tool_text = ", ".join(tools[:6])
     if len(tools) > 6:
         tool_text = f"{tool_text}, +{len(tools) - 6} more"
-    description = f"[autormmdetect] tools={tool_text}; note={base_text}"[:4096]
+    description = f"[tisu_rmm] tools={tool_text}; note={base_text}"[:4096]
     return IndicatorPayload(
         type="domain",
         value=domain,
