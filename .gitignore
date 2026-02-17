@@ -1,5 +1,6 @@
 # Secrets
 crowdstrike/.env
+crowdstrike_ioc/.env
 
 # Python caches
 __pycache__/
