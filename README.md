@@ -21,10 +21,17 @@ This project aims to be a central hub for security practitioners dealing with RM
 The project is organized by platform and toolset:
 
 ### 🛡️ [Sigma Rules & Community Detections](magicsword_lolrmm/detections/sigma)
-Extensive collection of vendor-agnostic detection rules.
-- **Sigma Rules**: Over 200+ Sigma rules covering process, network, and registry artifacts for almost every RMM tool.
-- **KQL Queries**: Generic and specific KQL queries for Microsoft Sentinel/Defender.
+Extensive collection of vendor-agnostic detections maintained by the [LOLRMM project](https://lolrmm.io/) from [magicsword-io](https://github.com/magicsword-io/LOLRMM). Huge kudos to their team for building and maintaining this dataset.
+- **Sigma Rules**: Over 200 Sigma rules covering process, network, and registry artifacts for many RMM tools.
+- **Sigma Process Detection**: [generic_rmm_detection.yml](https://github.com/magicsword-io/LOLRMM/blob/main/detections/sigma/generic_rmm_detection.yml)
+- **DNS Detection Rules**: [rmm_domains_dns_queries.yml](https://github.com/magicsword-io/LOLRMM/blob/main/detections/sigma/rmm_domains_dns_queries.yml)
 - **Cross-Platform**: Rules can be converted to your preferred SIEM using tools like [sigmac](https://github.com/SigmaOT/sigma).
+
+### 🛡️ [Microsoft Defender for Endpoint](microsoft_defender/README.md)
+Detect unauthorized RMM domains in Microsoft Defender for Endpoint and Microsoft Sentinel.
+- **KQL Detection**: Query using LOLRMM domain feed with approved-domain filtering.
+- **MDE and Sentinel Notes**: Includes field-name differences (`Timestamp` vs `TimeGenerated`).
+- **Fast Start**: Copy-ready query and tuning guidance.
 
 ### 📊 [Splunk](splunk/README.md)
 Comprehensive monitoring for Splunk Enterprise and Enterprise Security.
