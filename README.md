@@ -6,9 +6,9 @@
 
 This repository serves as a comprehensive collection of resources for monitoring, detecting, and analyzing Remote Monitoring and Management (RMM) tools across enterprise environments. While RMM tools are essential for legitimate IT administration, they are increasingly being leveraged by threat actors as part of "Living Off the Land" (LOL) techniques, making their detection and monitoring crucial for security teams.
 
-All data is compiled and curated from: [https://lolrmm.io](https://lolrmm.io)
+All data is compiled and curated from: [LOLRMM website](https://lolrmm.io)
 
-Note: This project originates from the TISU community and is part of the Crude Solutions Projects. Offensive tools and guides related to this work are available at https://github.com/CroodSolutions/AutoRMM
+Note: This project originates from the **TISU** community and is part of the Crude Solutions Projects. Offensive tools and guides related to this work are available at [AutoRMM (Crude Solutions)](https://github.com/CroodSolutions/AutoRMM). This initiative is in collaboration with [ACTRA](https://actraaz.org) and [Grand Canyon University](https://www.gcu.edu).
 
 ## Project Goals
 
