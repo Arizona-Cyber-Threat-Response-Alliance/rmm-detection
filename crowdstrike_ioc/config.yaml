@@ -1,0 +1,25 @@
+# CrowdStrike Manager Configuration
+
+policy:
+  # Rollout controls
+  deployment_stage: assess
+  deploy_action: detect
+  report_action_candidates:
+    - no_action
+    - none
+  prevalence_threshold: 10
+
+rollout:
+  # Optional: Restrict IOCs to specific Host Groups (by name).
+  # If set, indicators are NOT applied globally.
+  host_groups:
+    - Purple Team Exercise Hosts
+
+  # Prioritized rollout list for commonly exploited/high-visibility tools.
+  priority_platforms:
+    - ScreenConnect
+
+safety:
+  excluded_platforms:
+    - TeamViewer
+  excluded_domains: []

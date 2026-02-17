@@ -1,0 +1,11 @@
+# Secrets
+crowdstrike/.env
+
+# Python caches
+__pycache__/
+.ruff_cache/
+
+# CrowdStrike IOC workspace docs
+crowdstrike_ioa/*.md
+!crowdstrike_ioa/README.md
+!crowdstrike_ioa/AGENTS.md

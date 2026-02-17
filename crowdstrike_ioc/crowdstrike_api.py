@@ -98,7 +98,7 @@ def resolve_action(client, stage: str, config: dict) -> str:
     if stage == "report":
         candidates = [
             str(x).strip().lower()
-            for x in config.get("report_action_candidates", [])
+            for x in config.get("policy", {}).get("report_action_candidates", [])
             if str(x).strip()
         ]
         for candidate in candidates:
@@ -109,7 +109,11 @@ def resolve_action(client, stage: str, config: dict) -> str:
             f"Configured: {candidates}, Available: {action_names}"
         )
 
-    deploy_action = str(config.get("deploy_action", DEFAULT_ACTION)).strip().lower()
+    deploy_action = (
+        str(config.get("policy", {}).get("deploy_action", DEFAULT_ACTION))
+        .strip()
+        .lower()
+    )
     if deploy_action in action_names:
         return deploy_action
 

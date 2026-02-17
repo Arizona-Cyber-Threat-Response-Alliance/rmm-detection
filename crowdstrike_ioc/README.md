@@ -1,4 +1,4 @@
-# CrowdStrike IOC Sync (LOLRMM Domains)
+# CrowdStrike Manager (LOLRMM IOC Sync)
 
 This directory contains a scoped IOC sync workflow for importing LOLRMM domain indicators into CrowdStrike IOC Management.
 
@@ -30,8 +30,8 @@ Create API credentials in Falcon here:
 ## Install and run (uv preferred)
 ```bash
 uv pip install crowdstrike-falconpy pyyaml python-dotenv
-uv run python ioc_sync.py --dry-run --limit 20
-uv run python ioc_sync.py
+uv run python cs-sync.py --dry-run --limit 20
+uv run python cs-sync.py
 ```
 
 ## Rollout flow
@@ -39,14 +39,16 @@ Use assess stage first to measure prevalence and generate whitelist recommendati
 
 ```bash
 # Stage 1: assess mode (no IOC writes)
-uv run python ioc_sync.py --stage assess --limit 100
+uv run python cs-sync.py --stage assess --limit 100
 
 # Stage 2: passive/report mode (create with no-detection action)
-uv run python ioc_sync.py --stage report --confirm-write
+uv run python cs-sync.py --stage report
 
 # Stage 3: deploy mode (detect action)
-uv run python ioc_sync.py --stage deploy --confirm-write
+uv run python cs-sync.py --stage deploy
 ```
+
+**Interactive Safety**: Running `report` or `deploy` modes without `--dry-run` will trigger interactive prompts to confirm execution and scope. To bypass these for automation, use `--confirm-write`.
 
 Use `--summary-json` to capture a machine-readable run summary.
 - Summary output includes `summary_schema_version` and `generated_at` for forward compatibility.
@@ -54,7 +56,7 @@ Use `--summary-json` to capture a machine-readable run summary.
 Example:
 
 ```bash
-uv run python ioc_sync.py --stage report --dry-run --limit 25 --summary-json run-summary.json
+uv run python cs-sync.py --stage report --dry-run --limit 25 --summary-json run-summary.json
 ```
 
 Example summary shape:
@@ -97,59 +99,60 @@ Example summary shape:
 
 ## Usage Examples
 
-Here are common scenarios for running the tool. All write operations require `--confirm-write` unless `--dry-run` is present.
+Here are common scenarios for running the tool. All write operations require confirmation (interactive or `--confirm-write`).
 
 ### 1. Dry Run (Safe Mode)
 See what *would* happen without making any changes. Good for testing configuration or seeing new indicators.
 ```bash
-uv run python ioc_sync.py --dry-run
+uv run python cs-sync.py --dry-run
 ```
 
 ### 2. Assessment with Prevalence (Default)
 Run in `assess` stage to check for existing devices contacting these domains. This does **not** create IOCs; it only queries device activity.
 ```bash
 # Check for prevalence of top 100 indicators
-uv run python ioc_sync.py --stage assess --limit 100 --prevalence-threshold 10
+uv run python cs-sync.py --stage assess --limit 100 --prevalence-threshold 10
 ```
 
 ### 3. Targeted Deployment (Testing)
 Deploy indicators only to a specific Host Group (e.g., "Test Workstations") to verify behavior before global rollout.
 ```bash
 # Deploy to 'Test Workstations' group with 'detect' action
-uv run python ioc_sync.py --stage deploy --host-groups "Test Workstations" --confirm-write
+uv run python cs-sync.py --stage deploy --host-groups "Test Workstations"
 ```
 
 ### 4. Global Deployment (Production)
 Force a global deployment to all hosts, ignoring any configured host groups.
 ```bash
 # Deploy globally with 'detect' action
-uv run python ioc_sync.py --stage deploy --global --confirm-write
+uv run python cs-sync.py --stage deploy --global
 ```
+**Warning**: Global deployment requires typing "GLOBAL" to confirm if running interactively.
 
 ### 5. Maintenance & Cleanup
 Run occasional maintenance tasks.
 
 ```bash
 # Prune: Remove managed IOCs that are no longer in the LOLRMM source
-uv run python ioc_sync.py --prune --confirm-write
+uv run python cs-sync.py --prune
 
 # Retrodetects: Update indicators and trigger retro-active detection on past activity
-uv run python ioc_sync.py --retrodetects --confirm-write
+uv run python cs-sync.py --retrodetects
 
 # Remove All: Delete ALL indicators created by this project (Full Uninstall)
-uv run python ioc_sync.py --remove-all --confirm-write
+uv run python cs-sync.py --remove-all
 ```
 
 ## Utility Commands
 
 Check the current state of the project and source data without making changes:
 ```bash
-uv run python ioc_sync.py --project-status
+uv run python cs-sync.py --project-status
 ```
 
 Generate a machine-readable JSON summary of a run (useful for automation/logging):
 ```bash
-uv run python ioc_sync.py --stage report --dry-run --summary-json run-summary.json
+uv run python cs-sync.py --stage report --dry-run --summary-json run-summary.json
 ```
 
 ## Deployment Scope (Global vs. Test Groups)
@@ -158,36 +161,48 @@ By default, the tool applies IOCs **globally** to all hosts in the tenant (`appl
 To restrict deployment to specific **Host Groups** (e.g., for testing or phased rollout):
 
 1.  **Via Config (Recommended for permanence)**:
-    Add the `host_groups` key to `config.yaml`:
+    Add the `host_groups` key to `config.yaml` (under `rollout`):
     ```yaml
-    # Target specific groups (IOCs will NOT be global)
-    host_groups:
-      - "Purple Team Exercise Hosts"
-      - "Test Workstations"
+    rollout:
+      # Target specific groups (IOCs will NOT be global)
+      host_groups:
+        - "Purple Team Exercise Hosts"
+        - "Test Workstations"
     ```
 
 2.  **Via CLI (Recommended for ad-hoc testing)**:
     Override the config using `--host-groups`:
     ```bash
     # Target a specific test group
-    uv run python ioc_sync.py --host-groups "Purple Team Exercise Hosts"
+    uv run python cs-sync.py --host-groups "Purple Team Exercise Hosts"
     
     # Force global deployment (ignore config)
-    uv run python ioc_sync.py --global
+    uv run python cs-sync.py --global
     ```
 
 **Note**: When Host Groups are specified, the IOC payload sets `applied_globally=false` and attaches the resolved Host Group IDs.
 
-## Exclusions
-Edit `config.yaml`:
-- `excluded_platforms`: LOLRMM tool names (for example `TeamViewer`)
-- `priority_platforms`: high-priority/popular tool names to process first (for example `ScreenConnect`)
-- `excluded_domains`: explicit domain values to suppress
-- `deployment_stage`: `assess`, `report`, or `deploy`
-- `report_action_candidates`: action preference list for no-detection stage
-- `deploy_action`: action used when stage is `deploy`
-- `prevalence_threshold`: minimum devices to suggest exclusion/whitelist review
+## Configuration (`config.yaml`)
 
-Notes:
-- Config keys outside this set are ignored with a warning.
-- If `config.yaml` is missing, built-in defaults are used and a warning is shown.
+The configuration file is structured into three main sections: `policy`, `rollout`, and `safety`.
+
+```yaml
+policy:
+  deployment_stage: assess        # assess, report, or deploy
+  deploy_action: detect           # action when in deploy stage
+  report_action_candidates:       # candidates for report stage (passive)
+    - no_action
+    - none
+  prevalence_threshold: 10        # device count threshold for prevalence reporting
+
+rollout:
+  host_groups:                    # Limit scope to these groups
+    - Purple Team Exercise Hosts
+  priority_platforms:             # Platforms to prioritize in processing
+    - ScreenConnect
+
+safety:
+  excluded_platforms:             # Platforms (tools) to exclude entirely
+    - TeamViewer
+  excluded_domains: []            # Specific domains to exclude
+```

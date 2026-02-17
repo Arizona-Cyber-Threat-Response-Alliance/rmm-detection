@@ -37,7 +37,7 @@ from reporting import (
 )
 from source import SOURCE_STATS_KEYS, collect_domains, fetch_lolrmm
 
-LOGGER = logging.getLogger("ioc_sync")
+LOGGER = logging.getLogger("cs_sync")
 
 
 def parse_args() -> argparse.Namespace:
@@ -145,7 +145,9 @@ def main() -> int:
         LOGGER.warning("Using built-in defaults for now.")
 
     stage = (
-        (args.stage or str(config.get("deployment_stage", "assess"))).strip().lower()
+        (args.stage or str(config.get("policy", {}).get("deployment_stage", "assess")))
+        .strip()
+        .lower()
     )
     if stage not in {"assess", "report", "deploy"}:
         raise RuntimeError(
@@ -155,7 +157,7 @@ def main() -> int:
     prevalence_threshold = (
         args.prevalence_threshold
         if args.prevalence_threshold is not None
-        else int(config.get("prevalence_threshold", 25))
+        else int(config.get("policy", {}).get("prevalence_threshold", 25))
     )
 
     LOGGER.info("Configuration Echo:")
@@ -164,18 +166,19 @@ def main() -> int:
     LOGGER.info("  - Limit: %s", args.limit if args.limit > 0 else "All")
     LOGGER.info(
         "  - Priority Platforms: %d configured",
-        len(config.get("priority_platforms", [])),
+        len(config.get("rollout", {}).get("priority_platforms", [])),
     )
     LOGGER.info(
         "  - Excluded Platforms: %d configured",
-        len(config.get("excluded_platforms", [])),
+        len(config.get("safety", {}).get("excluded_platforms", [])),
     )
     LOGGER.info(
-        "  - Excluded Domains: %d configured", len(config.get("excluded_domains", []))
+        "  - Excluded Domains: %d configured",
+        len(config.get("safety", {}).get("excluded_domains", [])),
     )
 
     # CLI override for host groups
-    host_groups_config = config.get("host_groups", [])
+    host_groups_config = config.get("rollout", {}).get("host_groups", [])
     if args.global_scope:
         host_groups_config = []
         LOGGER.info("  - Host Groups: Cleared via --global (Global Deployment)")
@@ -191,6 +194,32 @@ def main() -> int:
         LOGGER.info("  - Host Groups: %s", host_groups_config)
     else:
         LOGGER.info("  - Host Groups: None (Global Deployment)")
+
+    # Safety Checks and Confirmations
+    is_write_stage = stage in ("report", "deploy")
+    is_global = not host_groups_config
+
+    if is_write_stage and not args.dry_run:
+        print(
+            f"\n!!! SAFETY WARNING: You are about to running in '{stage.upper()}' mode. !!!"
+        )
+        if is_global:
+            print("!!! SCOPE WARNING: This will apply to ALL hosts (Global Scope). !!!")
+            if not args.confirm_write:
+                user_input = input("Type 'GLOBAL' to confirm global deployment: ")
+                if user_input.strip() != "GLOBAL":
+                    LOGGER.error("Global deployment not confirmed. Aborting.")
+                    return 1
+        else:
+            print(f"Scope: {len(host_groups_config)} Host Groups.")
+            if not args.confirm_write:
+                user_input = input("Type 'yes' to confirm deployment: ")
+                if user_input.lower().strip() != "yes":
+                    LOGGER.error("Deployment not confirmed. Aborting.")
+                    return 1
+
+        # If we passed the interactive check, we treat it as confirmed
+        args.confirm_write = True
 
     if args.dry_run:
         LOGGER.info("  - Mode: DRY-RUN")

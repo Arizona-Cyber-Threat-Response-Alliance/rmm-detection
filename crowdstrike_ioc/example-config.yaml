@@ -1,0 +1,26 @@
+# IOC sync exclusions.
+# "platform" here refers to the LOLRMM tool/platform Name field.
+
+excluded_platforms:
+  - TeamViewer
+
+# Prioritized rollout list for commonly exploited/high-visibility tools.
+# Domains tied to these tools are ordered first (useful with --limit and --limit-test-mode).
+priority_platforms:
+  - ScreenConnect
+
+# Optional: Restrict IOCs to specific Host Groups (by name).
+# If set, indicators are NOT applied globally.
+host_groups: []
+# host_groups:
+#   - "Purple Team Exercise Hosts"
+
+excluded_domains:
+  - example.invalid
+
+deployment_stage: assess
+deploy_action: detect
+report_action_candidates:
+  - no_action
+  - none
+prevalence_threshold: 10
