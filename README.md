@@ -8,6 +8,8 @@ This repository serves as a comprehensive collection of resources for monitoring
 
 All data is compiled and curated from: [https://lolrmm.io](https://lolrmm.io)
 
+Note: This project originates from the TISU community and is part of the Crude Solutions Projects. Offensive tools and guides related to this work are available at https://github.com/CroodSolutions/AutoRMM
+
 ## Project Goals
 
 This project aims to be a central hub for security practitioners dealing with RMM tool detection. We are actively expanding to include:
