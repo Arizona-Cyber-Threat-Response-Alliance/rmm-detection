@@ -1,6 +1,6 @@
 # CrowdStrike Manager (LOLRMM IOC Sync)
 
-This directory contains a scoped IOC sync workflow for importing LOLRMM domain indicators into CrowdStrike IOC Management.
+This directory contains a scoped IOC sync workflow for importing domain indicators from the [LOLRMM project](https://lolrmm.io/) by [magicsword-io](https://github.com/magicsword-io) into CrowdStrike IOC Management.
 
 ## Quick Start (uv preferred)
 
