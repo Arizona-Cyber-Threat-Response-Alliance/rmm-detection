@@ -18,6 +18,10 @@ This project aims to be a central hub for security practitioners dealing with RM
 - Detection engineering guidance and playbooks
 - Incident response procedures specific to RMM abuse
 
+## Incident Response Playbooks
+
+- [RMM Incident Response Runbook Template](https://izikipizi.github.io/nizlo-msp-operations-resources/rmm-incident-response-runbook-template.html) — A free 30-control checklist covering preparation, triage, containment, evidence preservation, eradication, recovery, and post-incident review, with a downloadable CSV. Vendor-contributed and maintained by Nizlo; no login is required.
+
 ## Repository Structure
 
 The project is organized by platform and toolset:
